@@ -1,5 +1,5 @@
 # config/initializers/will_paginate.rb
-# 
+#
 # This extension code was written by Isaac Bowen, originally found
 # at http://isaacbowen.com/blog/using-will_paginate-action_view-and-bootstrap/
 
@@ -10,15 +10,16 @@ module WillPaginate
     def will_paginate(collection = nil, options = {})
       options, collection = collection, nil if collection.is_a? Hash
       # Taken from original will_paginate code to handle if the helper is not passed a collection object.
-      collection ||= infer_collection_from_controller 
+      collection ||= infer_collection_from_controller
       options[:renderer] ||= BootstrapLinkRenderer
       super.try :html_safe
     end
 
     class BootstrapLinkRenderer < LinkRenderer
       protected
-      
+
       def html_container(html)
+        container_attributes[:class] = "#{container_attributes[:class]} pagination-small pagination-centered"
         tag :div, tag(:ul, html, :class => "pagination"), container_attributes
       end
 
